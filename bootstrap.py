@@ -42,7 +42,7 @@ def draw_bar(data,origin_result,houzui,out_dire_path):
     plt.xlabel('Standard deviation of attenuation coef')
     plt.ylabel('Number')
     plt.axvline(x=np.mean(data),color='blue',label='Resampled data')
-    plt.axvline(x=origin_result,color='red',label='Origin data')
+    plt.axvline(x=origin_result,color='red',label='Origin data',linestyle='--')
     plt.legend(loc='best')
     plt.tight_layout()
     plt.savefig(out_dire_path+'/hist'+houzui+'.png')
@@ -92,7 +92,7 @@ if __name__=='__main__':
 
         each_resample_mean,each_resample_std   =   bootstrap(num_bootstraps=1000,data=origin_data)
         attenuation_coef['Resampled']['Mean'].append(np.mean(each_resample_mean))
-        attenuation_coef['Resampled']['Std'].append(np.mean(each_resample_std))
+        attenuation_coef['Resampled']['Std'].append(np.std(each_resample_mean))
 
         draw_vertical(origin_data,0)
         plt.xlabel('Number of resemple')
@@ -102,7 +102,7 @@ if __name__=='__main__':
         plt.savefig(out_dire_path+'/resemple'+houzui+'.png')
         plt.close()
 
-        draw_bar(each_resample_std,np.std(origin_data),houzui,out_dire_path)
+        draw_bar(each_resample_mean,np.mean(origin_data),houzui,out_dire_path)
         print(np.std(origin_data),np.mean(each_resample_std))
     
     draw_final_mean_and_std(attenuation_coef,out_dire_path)
