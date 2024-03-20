@@ -70,6 +70,10 @@ def draw_final_mean_and_std(attenuation_coef,out_dire_path):
     plt.tight_layout()
     plt.savefig(out_dire_path+'/all.png')
 
+def save_3list(list1,list2,list3,path):
+    #list1~3: period mean std
+    data    =   np.array([list1,list2,list3]).T
+    np.savetxt(path+'/new_gamma.txt',data)
     
 if __name__=='__main__':
     with open('parameter.json','r')as f:
@@ -106,3 +110,4 @@ if __name__=='__main__':
         print(np.std(origin_data),np.mean(each_resample_std))
     
     draw_final_mean_and_std(attenuation_coef,out_dire_path)
+    save_3list(attenuation_coef['Periods'],attenuation_coef['Resampled']['Mean'],attenuation_coef['Resampled']['Std'],out_dire_path)
