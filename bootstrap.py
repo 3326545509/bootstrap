@@ -96,7 +96,7 @@ if __name__=='__main__':
 
         each_resample_mean,each_resample_std   =   bootstrap(num_bootstraps=1000,data=origin_data)
         attenuation_coef['Resampled']['Mean'].append(np.mean(each_resample_mean))
-        attenuation_coef['Resampled']['Std'].append(np.std(each_resample_mean))
+        attenuation_coef['Resampled']['Std'].append(2*np.std(each_resample_mean)) #3 times std
 
         draw_vertical(origin_data,0)
         plt.xlabel('Number of resemple')
